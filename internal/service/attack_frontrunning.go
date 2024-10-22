@@ -100,7 +100,7 @@ func AttackContract(ethClient *ethclient.Client, correctNumber int64, gasPriceTx
 	data = append(data, paddedNumber...)
 
 	gasLimit := uint64(100000)
-	gasPrice := big.NewInt(gasPriceTx + 5000000000)
+	gasPrice := big.NewInt(gasPriceTx + 10000000000)
 
 	contractAddress := common.HexToAddress(ContractAddress)
 	value := new(big.Int)
