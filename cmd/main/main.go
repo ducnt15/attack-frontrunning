@@ -16,6 +16,7 @@ func init() {
 func main() {
 	err := service.ContractInteract()
 	if err != nil {
+		fmt.Println(err)
 		return
 	}
 }
